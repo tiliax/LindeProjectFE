@@ -41,12 +41,28 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
 
     console.log(currentUser);
 
-    useEffect(() => {
-        setCurrentUserBoxes(currentUser.userBoxes);
-    }, [currentUser]);
+    // const memoizedSetCurrentUserBoxes = useCallback((boxes) => { //!chatGPT Vorschlag
+    //     setCurrentUserBoxes(boxes);
+    // }, []);
+    
+    // useEffect(() => {
+    //     memoizedSetCurrentUserBoxes(currentUser.userBoxes);
+    // }, [currentUser, memoizedSetCurrentUserBoxes]);
+
+    
+    // useEffect(() => { //! original
+    //     setCurrentUserBoxes(currentUser.userBoxes);
+    // }, [currentUser]); //TODO function runs with the first rendern and allways when a certain value (here currentUser) changes
 
     useEffect(() => {
-        fetch("https://morning-shelf-75082.herokuapp.com/box/user", {
+        setCurrentUserBoxes(currentUser.userBoxes);
+    }, [currentUser, setCurrentUserBoxes]); //! setCurrenUserBoxes evt nicht richtig da. hat jedoch Fehelermeldung behoben
+
+
+    useEffect(() => {
+        fetch(
+            // "https://morning-shelf-75082.herokuapp.com/box/user", {
+            "http://localhost:3000/box/user", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
@@ -57,7 +73,7 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
             .then((data) => {
                 setCurrentUser(data.user);
             });
-    }, []);
+    }, []);  //TODO empty array: runs function only with the first render 
 
     return (
         <header>
@@ -80,7 +96,7 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            {Object.hasOwn(currentUser, "_id") ? null : (
+                            {Object.hasOwn(currentUser, "_id") ? null : (   //TODO hasOwn() checks, of object has certain property (here id) or not. if yes: null, nichts passiert. if no, sign up kommt
                                 <Nav.Link
                                     href="#"
                                     onClick={handleUserSignupOpen}
@@ -88,8 +104,10 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
                                     Sign up
                                 </Nav.Link>
                             )}
-                            <Nav.Link>
-                                {Object.hasOwn(currentUser, "_id") ? (
+
+                            
+                            {/* <Nav.Link> */} {/* //! Nav.Link auskommentiert um Zehler zu beheben. evt coursing others */}
+                                {Object.hasOwn(currentUser, "_id") ? ( //TODO hat existiert currentUser mit id, dann wird logout angeboten, sind daten nicht vorhanden, login
                                     <Nav.Link
                                         href="#"
                                         onClick={handleUserLogout}
@@ -104,8 +122,11 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
                                         Log In
                                     </Nav.Link>
                                 )}
-                            </Nav.Link>
-                            {Object.hasOwn(currentUser, "_id") && (
+                            {/* </Nav.Link> */}
+
+
+
+                            {Object.hasOwn(currentUser, "_id") && (  //TODO sind daten da, dann optionen für neue box, settings, und myboxes. (git nur den true fall)
                                 <>
                                     <Nav.Link
                                         href="#"

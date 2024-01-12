@@ -44,12 +44,12 @@ const TagSlide = () => {
     return (
         <div className="slider">
             <Slider {...settings}>
-                {tags.map((item) => (
+                {tags.map((item, i) => (
                     <Button
                         className="tag-button"
-                        key={tags.id}
-                        d-flex
-                        justify-content-around
+                        key={"tag-button-" + i}
+                        d-flex="true"
+                        justify-content-around="true"
                         variant="dark"
                         size="sm"
                     >

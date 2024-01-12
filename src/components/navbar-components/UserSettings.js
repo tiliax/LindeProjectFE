@@ -8,7 +8,9 @@ const UserSettings = ({
 }) => {
     // Delete Account Function:
     const handleDeleteAccount = async () => {
-        await fetch("https://morning-shelf-75082.herokuapp.com/box/delete", {
+        await fetch(
+            // "https://morning-shelf-75082.herokuapp.com/box/delete", {
+            "http://localhost:3000/box/delete", {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,14 +46,14 @@ const UserSettings = ({
                     </button>
                 </h4>
             </Modal.Body>
-            {/*             <Modal.Footer>
+                        <Modal.Footer>
                 <Button variant="secondary" onClick={handleUserSettingsClose}>
                     Cancel
                 </Button>
                 <Button variant="primary" onClick={handleUserSettingsClose}>
                     Save settings
                 </Button>
-            </Modal.Footer> */}
+            </Modal.Footer>
         </Modal>
     );
 };

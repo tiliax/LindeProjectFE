@@ -40,11 +40,11 @@ export default function Footer() {
                             </CDBBox>
                         </Col>
 
-                        <Col sm={6}>
+                        <Col sm={6}> {/* //! einkommentieren und Fehler finden. etwas mit Wrapper! */} 
                             <CDBBox flex="column" className="footer-vision">
                                 <br />
                                 <p>
-                                    <h6>OUR VISION: </h6>
+                                    <em>OUR VISION: </em>
                                     We like the idea of sharing! Especially if
                                     it is about something you no longer have any
                                     use for. Did you ever think about not
@@ -65,24 +65,24 @@ export default function Footer() {
 
                         <Col sm={3}>
                             <CDBBox flex="column" className="footer-contact">
-                                <CDBFooterLink
+                                {/* <CDBFooterLink
                                     className="footer-link"
                                     style={{ cursor: "pointer" }}
                                     onClick={handleContact}
                                 >
                                     CONTACT
-                                </CDBFooterLink>
+                                </CDBFooterLink> */}
                             </CDBBox>
                             <br />
 
                             <CDBBox flex="column" className="footer-contact">
-                                <CDBFooterLink
+                                {/* <CDBFooterLink
                                     className="footer-link"
                                     style={{ cursor: "pointer" }}
                                     onClick={handleFeedback}
                                 >
                                     FEEDBACK
-                                </CDBFooterLink>
+                                </CDBFooterLink> */}
                             </CDBBox>
                         </Col>
                     </Row>
@@ -137,7 +137,7 @@ export default function Footer() {
                         <textarea
                             className="feedbackTextarea"
                             rows="4"
-                            cols="58"
+                            cols="44"
                             defaultValue={null}
                         />
                     </Form>
