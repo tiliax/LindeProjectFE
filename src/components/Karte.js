@@ -12,7 +12,7 @@ function Karte({ currentUserBoxes }) {
 
     const getAllBoxes = async () => {
         const response = await fetch(
-            "https://morning-shelf-75082.herokuapp.com/box/findallboxes",
+            "http://localhost:8080/box/findallboxes",
         );
         const data = await response.json();
         if (data) {
@@ -60,7 +60,7 @@ function Karte({ currentUserBoxes }) {
                                 <h1>Location: {box.boxLocationCity}</h1>
                                 <h4>See what is inside:</h4>
                                 <img
-                                    src={`https://morning-shelf-75082.herokuapp.com/images/${box.boxImagePath}`}
+                                    src={`http://localhost:8080/images/${box.boxImagePath}`}
                                     alt="boximage"
                                 />
                             </div>
@@ -87,7 +87,7 @@ function Karte({ currentUserBoxes }) {
                                 <h1>Location: {item.boxLocationCity}</h1>
                                 <h4>See what is inside:</h4>
                                 <img
-                                    src={`https://morning-shelf-75082.herokuapp.com/images/${item.boxImagePath}`}
+                                    src={`http://localhost:8080/images/${item.boxImagePath}`}
                                     alt="boximage"
                                 />
                             </div>

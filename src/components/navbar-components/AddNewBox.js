@@ -71,7 +71,7 @@ const AddNewBox = ({ addNewBox, handleAddNewBoxClose, currentUser }) => {
         };
 
         const sendNewBoxData = await fetch(
-            "https://morning-shelf-75082.herokuapp.com/box/addbox",
+            "http://localhost:8080/box/addbox",
             fetchOptionNewBoxData,
         );
         const json = await sendNewBoxData.json();

@@ -31,7 +31,7 @@ const MyBoxes = ({ myBoxes, handleMyBoxesClose, currentUser }) => {
                     <div>x: {item.x}</div>
                     <div>y: {item.y}</div>
                     <img
-                        src={`https://morning-shelf-75082.herokuapp.com/images/${item.boxImagePath}`}
+                        src={`http://localhost:8080/images/${item.boxImagePath}`}
                         alt="img"
                     />
                     {/*  <h6>Box Items:</h6>

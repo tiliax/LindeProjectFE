@@ -46,7 +46,7 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
     }, [currentUser]);
 
     useEffect(() => {
-        fetch("https://morning-shelf-75082.herokuapp.com/box/user", {
+        fetch("http://localhost:8080/box/user", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",

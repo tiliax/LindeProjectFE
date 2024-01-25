@@ -28,7 +28,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
 
     const handleSignupSend = async () => {
         const response = await fetch(
-            "https://morning-shelf-75082.herokuapp.com/box/signup",
+            "http://localhost:8080/box/signup",
             {
                 method: "POST",
                 headers: {
@@ -40,7 +40,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
         const data = await response.json();
         if (data.success) {
             handleUserSignupClose();
-            window.location.reload();
+            //window.location.reload();
         }
     };
 
