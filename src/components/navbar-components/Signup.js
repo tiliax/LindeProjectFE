@@ -29,8 +29,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
     const handleSignupSend = async () => {
         const response = await fetch(
             //! HIER WEITER MACHEN!!!
-            // "https://morning-shelf-75082.herokuapp.com/box/signup",
-            "http://localhost:3000/box/signup",
+            process.env["REACT_APP_BACKEND_URL"] + "/box/signup",
             {
                 method: "POST",
                 headers: {

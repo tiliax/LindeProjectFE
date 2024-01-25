@@ -8,9 +8,7 @@ const UserSettings = ({
 }) => {
     // Delete Account Function:
     const handleDeleteAccount = async () => {
-        await fetch(
-            // "https://morning-shelf-75082.herokuapp.com/box/delete", {
-            "http://localhost:3000/box/delete", {
+        await fetch(process.env["REACT_APP_BACKEND_URL"] + "/box/delete", {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -12,9 +12,7 @@ function Karte({ currentUserBoxes }) {
 
     const getAllBoxes = async () => {
         const response = await fetch(
-            // "https://morning-shelf-75082.herokuapp.com/box/findallboxes",
-
-            "http://localhost:3000/box/findallboxes",
+            process.env["REACT_APP_BACKEND_URL"] + "/box/findallboxes",
         );
         const data = await response.json();
         if (data) {
