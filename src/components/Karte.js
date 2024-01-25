@@ -12,7 +12,7 @@ function Karte({ currentUserBoxes }) {
 
     const getAllBoxes = async () => {
         const response = await fetch(
-            "http://localhost:8080/box/findallboxes",
+            process.env["REACT_APP_BACKEND_URL"] + "/box/findallboxes",
         );
         const data = await response.json();
         if (data) {

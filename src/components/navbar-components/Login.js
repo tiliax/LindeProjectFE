@@ -30,7 +30,7 @@ const Login = ({ userLogin, handleUserLoginClose, setCurrentUser }) => {
         setTimeout(async () => {
             const response = await fetch(
                 // "http://localhost:8080/box/login",
-                "http://localhost:8080/box/login",
+                process.env["REACT_APP_BACKEND_URL"] + "/box/login",
                 {
                     method: "POST",
                     headers: {

@@ -71,7 +71,7 @@ const AddNewBox = ({ addNewBox, handleAddNewBoxClose, currentUser }) => {
         };
 
         const sendNewBoxData = await fetch(
-            "http://localhost:8080/box/addbox",
+            process.env["REACT_APP_BACKEND_URL"] + "/box/addbox",
             fetchOptionNewBoxData,
         );
         const json = await sendNewBoxData.json();
