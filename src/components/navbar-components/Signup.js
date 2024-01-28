@@ -9,8 +9,11 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
         signupUsername: "",
         signupPassword: "",
         signupRepeatPassword: "",
-        signupCurrentUserLocation: "",
+        signupCurrentUserLocation: "",        
     });
+
+    const [signupErrors, setSignupErrors] = useState({});
+    const [validated, setValidated] = useState(false);
 
     const handleSignupChange = (e) => {
         const { name, value } = e.target;
@@ -38,12 +41,36 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                 body: JSON.stringify(signupData),
             },
         );
+        
+        
+
         const data = await response.json();
-        if (data.success) {
-            handleUserSignupClose();
-            window.location.reload();
+        
+        if (response.ok){
+            if (data.success) {
+                handleUserSignupClose();
+                window.location.reload();
+            }
+        } else {
+            if (data.name && data.name === "ValidationError"){
+                const validationErrors = data.inner;
+                
+                validationErrors.forEach((entry) => { 
+                    const {path, message} = entry;
+                    addSignupError(message,path);
+                });
+
+                setValidated(true);
+            }
         }
     };
+
+    const addSignupError = (errorMessage, inputField) => {
+        setSignupErrors((prevErrors) => {
+            prevErrors[inputField] ? prevErrors[inputField] += ", " + errorMessage  : prevErrors[inputField] = errorMessage;
+            return prevErrors;
+        });
+    }
 
     return (
         <Modal
@@ -54,10 +81,10 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
             centered="true"
         >
             <ModalHeader closeButton>
-                <Modal.Title>Sing up</Modal.Title>
+                <Modal.Title>Sign up</Modal.Title>
             </ModalHeader>
             <Modal.Body>
-                <Form onSubmit={handleSignupSubmit}>
+                <Form noValidate onSubmit={handleSignupSubmit}>
                     <Form.Group className="mb-3" controlId="signup_username">
                         <Form.Label>Username</Form.Label>
                         <Form.Control
@@ -66,7 +93,11 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupUsername"
                             value={signupData.signupUsername}
                             onChange={handleSignupChange}
+                            isInvalid={signupErrors.hasOwnProperty("signupUsername")}                            
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {signupErrors.signupUsername}
+                        </Form.Control.Feedback>                         
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="signup_password">
                         <Form.Label>Password</Form.Label>
@@ -76,7 +107,11 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupPassword"
                             value={signupData.signupPassword}
                             onChange={handleSignupChange}
+                            isInvalid={signupErrors.hasOwnProperty("signupPassword")}                            
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {signupErrors.signupPassword}
+                        </Form.Control.Feedback>                         
                     </Form.Group>
                     <Form.Group
                         className="mb-3"
@@ -108,7 +143,11 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupCurrentUserLocation"
                             value={signupData.signupCurrentUserLocation}
                             onChange={handleSignupChange}
+                            isInvalid={signupErrors.hasOwnProperty("signupCurrentUserLocation")}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {signupErrors.signupCurrentUserLocation}
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Button onClick={handleSignupSend} type="submit">
                         Send
