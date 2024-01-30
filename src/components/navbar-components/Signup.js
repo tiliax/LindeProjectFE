@@ -55,6 +55,8 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
             if (data.name && data.name === "ValidationError"){
                 const validationErrors = data.inner;
                 
+                setSignupErrors((prev) => {return {}});  //flush previous errors
+
                 validationErrors.forEach((entry) => { 
                     const {path, message} = entry;
                     addSignupError(message,path);
