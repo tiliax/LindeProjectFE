@@ -13,8 +13,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
     });
 
     const [signupErrors, setSignupErrors] = useState({});
-    const [validated, setValidated] = useState(false);
-
+    
     const handleSignupChange = (e) => {
         const { name, value } = e.target;
         setSignupData((prevData) => {
@@ -32,7 +31,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
     const handleSignupSend = async () => {
         const response = await fetch(
             //! HIER WEITER MACHEN!!!
-            process.env["REACT_APP_BACKEND_URL"] + "/box/signup",
+            process.env["REACT_APP_BACKEND_URL"] + "/user/signup",
             {
                 method: "POST",
                 headers: {
@@ -60,9 +59,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                 validationErrors.forEach((entry) => { 
                     const {path, message} = entry;
                     addSignupError(message,path);
-                });
-
-                setValidated(true);
+                });                
             }
         }
     };
@@ -73,6 +70,18 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
             return prevErrors;
         });
     }
+
+    const validate = (e) => {
+        const {name} = e.target;
+        setSignupErrors((prevErrors) =>{
+            let prevErrorsClone = {...prevErrors}; //"shallow clone" to get a different ref, otherwise won't trigger a rerender of the component
+            delete prevErrorsClone[name];
+            return prevErrorsClone;           
+        });      
+        
+
+        //FIXME: do actual client side validation here
+    };
 
     return (
         <Modal
@@ -95,6 +104,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupUsername"
                             value={signupData.signupUsername}
                             onChange={handleSignupChange}
+                            onBlur={validate}
                             isInvalid={signupErrors.hasOwnProperty("signupUsername")}                            
                         />
                         <Form.Control.Feedback type="invalid">
@@ -109,6 +119,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupPassword"
                             value={signupData.signupPassword}
                             onChange={handleSignupChange}
+                            onBlur={validate}
                             isInvalid={signupErrors.hasOwnProperty("signupPassword")}                            
                         />
                         <Form.Control.Feedback type="invalid">
@@ -126,6 +137,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupRepeatPassword"
                             value={signupData.signupRepeatPassword}
                             onChange={handleSignupChange}
+                            onBlur={validate}
                         />
                         <p>
                             {signupData.signupPassword ===
@@ -145,6 +157,7 @@ const Signup = ({ userSignup, handleUserSignupClose }) => {
                             name="signupCurrentUserLocation"
                             value={signupData.signupCurrentUserLocation}
                             onChange={handleSignupChange}
+                            onBlur={validate}
                             isInvalid={signupErrors.hasOwnProperty("signupCurrentUserLocation")}
                         />
                         <Form.Control.Feedback type="invalid">

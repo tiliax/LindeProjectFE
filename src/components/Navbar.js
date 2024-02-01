@@ -60,7 +60,7 @@ const CustomNavbar = ({ setCurrentUserBoxes }) => {
 
 
     useEffect(() => {
-        fetch(process.env["REACT_APP_BACKEND_URL"] + "/box/user", {
+        fetch(process.env["REACT_APP_BACKEND_URL"] + "/user/", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",

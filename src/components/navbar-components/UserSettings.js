@@ -8,7 +8,7 @@ const UserSettings = ({
 }) => {
     // Delete Account Function:
     const handleDeleteAccount = async () => {
-        await fetch(process.env["REACT_APP_BACKEND_URL"] + "/box/delete", {
+        await fetch(process.env["REACT_APP_BACKEND_URL"] + "/user/delete", {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
